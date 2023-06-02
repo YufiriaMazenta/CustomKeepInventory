@@ -1,0 +1,12 @@
+name: CustomKeepInventory
+version: ${version}
+main: world.oasismc.customkeepinventory.CustomKeepInventory
+api-version: 1.13
+load: STARTUP
+authors:
+  - YufiriaMazenta
+commands:
+  keepinventory:
+    permission: customkeepinventory.command.keepinventory
+    aliases:
+      - ki

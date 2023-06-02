@@ -1,0 +1,3 @@
+# CustomKeepInventory
+
+一款让玩家可以自行选择是否死亡不掉落的插件

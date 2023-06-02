@@ -1,0 +1,7 @@
+#用来标记玩家是否死亡不掉落的tag, 如果插件功能没有异常请不要修改此值
+keep_inventory_tag: keepinventory
+#消息提示方式, 有actionbar(快捷栏),title(标题),subtitle(副标题),message(聊天栏)三种类型
+#默认为actionbar
+message_type: actionbar
+message_keep_inventory_on: '&a死亡不掉落开启'
+message_keep_inventory_off: '&c死亡不掉落关闭'
