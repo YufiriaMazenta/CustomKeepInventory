@@ -1,13 +1,18 @@
-package world.oasismc.customkeepinventory.listener;
+package com.github.yufiriamazenta.cki.listener;
 
+import com.github.yufiriamazenta.cki.CustomKeepInventory;
+import com.github.yufiriamazenta.cki.command.KeepInventoryCommand;
+import crypticlib.listener.BukkitListener;
 import org.bukkit.GameRule;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import world.oasismc.customkeepinventory.CustomKeepInventory;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
+@BukkitListener
 public enum KeepInventoryListener implements Listener {
 
     INSTANCE;
@@ -30,8 +35,14 @@ public enum KeepInventoryListener implements Listener {
     }
 
     public static boolean hasKeepInventoryTag(Player player) {
-        String tag = CustomKeepInventory.getInstance().getConfig().getString("keep_inventory_tag", "keepinventory");
-        return player.getScoreboardTags().contains(tag);
+        PersistentDataContainer dataContainer = player.getPersistentDataContainer();
+        boolean has = dataContainer.has(CustomKeepInventory.INSTANCE.TAG, PersistentDataType.BYTE);
+        if (!has)
+            return false;
+        Byte b = dataContainer.get(CustomKeepInventory.INSTANCE.TAG, PersistentDataType.BYTE);
+        if (b == null)
+            return false;
+        return b >= 1;
     }
 
 }

@@ -1,16 +1,24 @@
-package world.oasismc.customkeepinventory.command;
+package com.github.yufiriamazenta.cki.command;
 
+import com.github.yufiriamazenta.cki.Configs;
+import com.github.yufiriamazenta.cki.CustomKeepInventory;
+import com.github.yufiriamazenta.cki.listener.KeepInventoryListener;
+import com.github.yufiriamazenta.cki.msg.MsgSender;
+import crypticlib.command.BukkitCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
-import world.oasismc.customkeepinventory.CustomKeepInventory;
-import world.oasismc.customkeepinventory.listener.KeepInventoryListener;
-import world.oasismc.customkeepinventory.msg.MsgSender;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Collections;
 import java.util.List;
 
+@BukkitCommand(
+    name = "customkeepinventory",
+    aliases = "cki",
+    permission = "customkeepinventory.command"
+)
 public enum KeepInventoryCommand implements TabExecutor {
 
     INSTANCE;
@@ -22,14 +30,13 @@ public enum KeepInventoryCommand implements TabExecutor {
             return true;
         }
         Player player = (Player) sender;
-        String tag = CustomKeepInventory.getInstance().getConfig().getString("keep_inventory_tag", "keepinventory");
         String hintMessage;
         if (!KeepInventoryListener.hasKeepInventoryTag(player)) {
-            player.addScoreboardTag(tag);
-            hintMessage = CustomKeepInventory.getInstance().getConfig().getString("message_keep_inventory_on");
+            player.getPersistentDataContainer().set(CustomKeepInventory.INSTANCE.TAG, PersistentDataType.BYTE, (byte) 1);
+            hintMessage = Configs.MESSAGE_KEEP_INVENTORY_ON.value();
         } else {
-            player.removeScoreboardTag(tag);
-            hintMessage = CustomKeepInventory.getInstance().getConfig().getString("message_keep_inventory_off");
+            player.getPersistentDataContainer().set(CustomKeepInventory.INSTANCE.TAG, PersistentDataType.BYTE, (byte) 0);
+            hintMessage = Configs.MESSAGE_KEEP_INVENTORY_OFF.value();
         }
         MsgSender.sendMsg(sender, hintMessage);
         return true;

@@ -1,8 +1,9 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version "7.1.2"
 }
 
-group = 'world.oasismc'
+group = 'com.github.yufiriamazenta'
 version = '1.0.0'
 
 repositories {
@@ -15,10 +16,15 @@ repositories {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
+    maven {
+        url = "http://repo.crypticlib.com:8081/repository/maven-public/"
+        allowInsecureProtocol = true
+    }
 }
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+    implementation 'com.crypticlib:common:0.10.26'
 }
 
 def targetJavaVersion = 8
@@ -37,6 +43,10 @@ tasks.withType(JavaCompile).configureEach {
     }
 }
 
+build {
+    dependsOn(shadowJar)
+}
+
 processResources {
     def props = [version: version]
     inputs.properties props
@@ -44,4 +54,10 @@ processResources {
     filesMatching('plugin.yml') {
         expand props
     }
+}
+
+
+shadowJar {
+    relocate("crypticlib", "${rootProject.group}.cki.crypticlib")
+    archiveFileName.set("${rootProject.name}-${version}.jar")
 }
