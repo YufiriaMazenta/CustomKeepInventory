@@ -19,7 +19,7 @@ public class KeepInvAdminCommand extends RootCmdExecutor {
         regSub(subcommand("reload")
             .setExecutor((sender, args) -> {
                 CustomKeepInventory.INSTANCE.reloadConfig();
-                MsgSender.sendMsg(sender, Configs.MESSAGE_TYPE.value());
+                MsgSender.sendMsg(sender, Configs.MESSAGE_COMMAND_RELOAD.value());
                 return true;
             })
             .setPermission("customkeepinventory.command.admin.reload")
