@@ -15,8 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 @BukkitCommand(
-    name = "customkeepinventory",
-    aliases = "cki",
+    name = "keepinventory",
+    aliases = "ki",
     permission = "customkeepinventory.command"
 )
 public enum KeepInventoryCommand implements TabExecutor {

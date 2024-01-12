@@ -3,3 +3,5 @@
 message_type: actionbar
 message_keep_inventory_on: '&a死亡不掉落开启'
 message_keep_inventory_off: '&c死亡不掉落关闭'
+default_keep_inventory: true
+message_command_reload: '&a插件已重载'

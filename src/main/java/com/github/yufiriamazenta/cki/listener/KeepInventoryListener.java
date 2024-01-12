@@ -1,5 +1,6 @@
 package com.github.yufiriamazenta.cki.listener;
 
+import com.github.yufiriamazenta.cki.Configs;
 import com.github.yufiriamazenta.cki.CustomKeepInventory;
 import com.github.yufiriamazenta.cki.command.KeepInventoryCommand;
 import crypticlib.listener.BukkitListener;
@@ -38,7 +39,7 @@ public enum KeepInventoryListener implements Listener {
         PersistentDataContainer dataContainer = player.getPersistentDataContainer();
         boolean has = dataContainer.has(CustomKeepInventory.INSTANCE.TAG, PersistentDataType.BYTE);
         if (!has)
-            return false;
+            return Configs.DEFAULT_KEEP_INVENTORY.value();
         Byte b = dataContainer.get(CustomKeepInventory.INSTANCE.TAG, PersistentDataType.BYTE);
         if (b == null)
             return false;
